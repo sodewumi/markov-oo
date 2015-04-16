@@ -12,8 +12,9 @@ class SimpleMarkovGenerator(object):
         for filename in filenames:
             open_file = open(filename)
             open_file = open_file.read().split()
-            file_list.append(open_file)
+            file_list.extend(open_file)
         
+        # print file_list
         return self.make_chains(file_list)
 
 
@@ -78,12 +79,12 @@ if __name__ == "__main__":
     # we should make an instance of the class
     # we should call the read_files method with the list of filenames
     # we should call the make_text method 5x
-    cache = []
-    # script, corpus = sys.argv
-    for filename in sys.argv[1:]:
-        cache.append(filename)
+    # cache = []
+    # # script, corpus = sys.argv
+    # for filename in sys.argv[1:]:
+    #     cache.append(filename)
 
 
     n_gram_length = int(raw_input("How long do you want you n_gram to be > "))
     smg = SimpleMarkovGenerator(n_gram_length)
-    smg.read_files(cache)
+    smg.read_files(sys.argv[1:])
