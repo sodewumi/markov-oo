@@ -2,30 +2,36 @@ import sys
 from random import choice
 
 class SimpleMarkovGenerator(object):
+    def __init__(self, length):
+        self.length = length
+
 
     def read_files(self, filenames):
         """Given a list of files, make chains from them."""
-        opn_file = open(filenames)
-        opn_file = opn_file.read().split()
+        # cache = []
+        # for n in sys.argv[1:]:
+        open_file = open(filenames)
+        open_file = open_file.read().split()
 
-        return self.make_chains(opn_file, 2)
+
+        return self.make_chains(open_file)
 
 
 
-    def make_chains(self, corpus_path, num):
+    def make_chains(self, corpus_path):
         """Takes input text as string; stores chains."""
 
         key = []
         n_grams = {}
 
-        for i in range(len(corpus_path)-num):
+        for i in range(len(corpus_path)-self.length):
 
-            for t in range(num):
+            for t in range(self.length):
                 key.append(corpus_path[i+t])
 
             key = tuple(key)
 
-            nxt_word = corpus_path[i + num]
+            nxt_word = corpus_path[i + self.length]
 
             n_grams.setdefault(key, []).append(nxt_word)
 
@@ -72,7 +78,9 @@ if __name__ == "__main__":
     # we should make an instance of the class
     # we should call the read_files method with the list of filenames
     # we should call the make_text method 5x
-
+    
     script, corpus = sys.argv
-    smg = SimpleMarkovGenerator()
+
+    n_gram_length = int(raw_input("How long do you want you n_gram to be > "))
+    smg = SimpleMarkovGenerator(n_gram_length)
     smg.read_files(corpus)
