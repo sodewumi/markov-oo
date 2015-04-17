@@ -60,7 +60,6 @@ class SimpleMarkovGenerator(object):
 
     def make_text(self, chains):
         """Takes dictionary of markov chains; returns random text."""
-        """Takes dictionary of markov chains; returns random text."""
 
         # choose a random bi-gram then find the value of said bi-gram. 
         # Afterward choose a random value from the generated list
@@ -126,6 +125,7 @@ class Twitter(SimpleMarkovGenerator, LowerCaseMixin, RemovePunctuationMixin):
 
         # generated_txt = self.lower_case(generated_txt) LowerCaseMixin
         # return self.rm_punctuation(generated_txt) RemovePunctuationMixin
+        return generated_txt
 
 
 
