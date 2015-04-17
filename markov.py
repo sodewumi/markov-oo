@@ -1,8 +1,10 @@
 import sys
 from random import choice
 
-class BaseMarkov(object):
-    pass
+class LowerCaseMixin(object):
+
+    def lower_case(self, markov_text):
+        return markov_text.lower()
 
 class SimpleMarkovGenerator(object):
     def __init__(self, length):
@@ -74,7 +76,7 @@ class SimpleMarkovGenerator(object):
 
         return generated_txt
 
-class Twitter(SimpleMarkovGenerator):
+class Twitter(SimpleMarkovGenerator, LowerCaseMixin):
 
     def __init__(self, length):
         super(Twitter, self).__init__(length)
@@ -111,7 +113,14 @@ class Twitter(SimpleMarkovGenerator):
             n_gram_value = chains.get(next_tuple)
 
 
-        return generated_txt
+        return self.lower_case(generated_txt)
+
+# class LowerCaseMixin(object):
+
+#     def lower_case(markov_text):
+#         return markov_text.lower()
+
+
 
 
 
