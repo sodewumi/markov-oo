@@ -2,9 +2,20 @@ import sys
 from random import choice
 
 class LowerCaseMixin(object):
+    """A Mixin that converts any string to lowercase"""
 
     def lower_case(self, markov_text):
         return markov_text.lower()
+
+class RemovePunctuationMixin(object):
+    """A mixin that removes punctuation from a string"""
+
+    def rm_punctuation(self, markov_text):
+        string_wo_punctuation = ""
+        for ltr in markov_text:
+            if ltr.isalpha() or ltr == " ":
+                string_wo_punctuation += ltr
+        return string_wo_punctuation
 
 class SimpleMarkovGenerator(object):
     def __init__(self, length):
@@ -76,7 +87,7 @@ class SimpleMarkovGenerator(object):
 
         return generated_txt
 
-class Twitter(SimpleMarkovGenerator, LowerCaseMixin):
+class Twitter(SimpleMarkovGenerator, LowerCaseMixin, RemovePunctuationMixin):
 
     def __init__(self, length):
         super(Twitter, self).__init__(length)
@@ -113,12 +124,8 @@ class Twitter(SimpleMarkovGenerator, LowerCaseMixin):
             n_gram_value = chains.get(next_tuple)
 
 
-        return self.lower_case(generated_txt)
-
-# class LowerCaseMixin(object):
-
-#     def lower_case(markov_text):
-#         return markov_text.lower()
+        # generated_txt = self.lower_case(generated_txt) LowerCaseMixin
+        # return self.rm_punctuation(generated_txt) RemovePunctuationMixin
 
 
 
